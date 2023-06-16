@@ -8,35 +8,61 @@ To implement QR decomposition algorithm using the Gram-Schmidt method.
 1.	Intialize the matrix Q and u
 2.	The vector u and e is given by
 
-    ![eqn1](./ex4.jpg)
 
-    ![eqn2](./ex6.jpg)
-
-    ![eqn3](./ex3.jpg)
+![exp 8 step 2](https://github.com/Safeeq-Fazil/QRdecomposition/assets/118680361/512d0a8b-ab04-4da9-91af-2448d56ac733)
 
 3.	Obtain the Q matrix   
-    ![eqn4](./ex1.jpg)
+![exp 8 step 3](https://github.com/Safeeq-Fazil/QRdecomposition/assets/118680361/10f58df0-6e84-40c9-a08c-6e3129852d12)
+
 4.	Construct the upper triangular matrix R
-    ![eqn5](./ex2.jpg)
+
+
+![exp 8 step 4](https://github.com/Safeeq-Fazil/QRdecomposition/assets/118680361/819de1a1-7f48-498f-98a9-4981d0884757)
 
 
 
 ## Program:
 ### Gram-Schmidt Method
 ```
-
-
-
-
-
-
-
+Program to QR decomposition using the Gram-Schmidt method
+Developed by: Chandrasekar S
+RegisterNumber: 212222230025
+'''
+import numpy as np
+def QR_Decomposition(A):
+    n,m = A.shape
+    
+    Q= np.empty((n,n))
+    u = np.empty((n,n))
+    
+    u[:, 0]= A[:, 0]
+    Q[:, 0]= u[:, 0] / np.linalg.norm(u[:, 0])
+    
+    for i in range(1,n):
+        
+        u[:, i]=A[:, i]
+        for j in range(i):
+            u[:, i] -= (A[:, i] @ Q[:, j]) * Q[:, j]
+            
+        Q[:, i] = u[:, i] / np.linalg.norm(u[:, i])
+        
+    R=np.zeros((n,m))
+    for i in range(n):
+        for j in range(i, m):
+            R[i,j] = A[:, j] @ Q[:, i]
+    print(Q)
+    print(R)
+    
+    
+    
+a = np.array(eval(input()))
+QR_Decomposition(a)
 ```
 
 ## Output
-```
+![image](https://github.com/ChandrasekarS22008273/QRdecomposition/assets/119643845/5d91168d-3001-40ca-b1c5-b3b72d03122c)
 
-```
+
 
 ## Result
 Thus the QR decomposition algorithm using the Gram-Schmidt process is written and verified the result.
